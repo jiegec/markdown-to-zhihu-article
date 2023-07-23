@@ -13,6 +13,7 @@ def convert(md):
     elements = soup.find_all("span", attrs={"class": "arithmatex"})
     for element in elements:
         latex = element.contents[1].contents[0].strip()
+        latex = latex.replace('\n', ' ')
 
         new_img = soup.new_tag("img")
         new_img["eeimg"] = "1"
@@ -25,6 +26,7 @@ def convert(md):
     elements = soup.find_all("div", attrs={"class": "arithmatex"})
     for element in elements:
         latex = element.contents[1].contents[0].strip()
+        latex = latex.replace('\n', ' ')
 
         new_img = soup.new_tag("img")
         new_img["eeimg"] = "1"
@@ -41,7 +43,13 @@ def convert(md):
 
         new_pre = soup.new_tag("pre")
         new_pre["lang"] = language
-        new_pre.string = code
+
+        # convert newlines to <br/>
+        lines = code.split('\n')
+        for i in range(len(lines)):
+            new_pre.append(lines[i])
+            if i < len(lines)-1:
+                new_pre.append(soup.new_tag("br"))
 
         element.replace_with(new_pre)
 

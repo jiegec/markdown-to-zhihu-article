@@ -30,7 +30,8 @@ def main(md):
             print(content)
             obj = json.loads(content)
 
-            obj['content'] = html
+            # newlines need to be stripped
+            obj['content'] = html.replace('\n', '')
             new_json = json.dumps(obj)
 
             new_command += f'  --data-raw {shlex.quote(new_json)}'
