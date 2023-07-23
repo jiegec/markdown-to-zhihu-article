@@ -1,8 +1,7 @@
 import click
 from markdown_to_zhihu_article import convert
-import re
+import ast
 import pyperclip
-import urllib
 import os
 import json
 import shlex
@@ -22,7 +21,14 @@ def main(md):
     for line in curl.split('\n'):
         if '--data-raw' in line:
             content = ' '.join(line.strip().split(' ')[1:-1])
-            obj = json.loads(content[1:-1])
+            if content[0] == "$":
+                # $'content'
+                content = ast.literal_eval(content[1:])
+            elif content[0] == "'":
+                # 'content'
+                content = content[1:-1]
+            print(content)
+            obj = json.loads(content)
 
             obj['content'] = html
             new_json = json.dumps(obj)

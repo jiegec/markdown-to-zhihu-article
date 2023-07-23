@@ -12,25 +12,25 @@ def convert(md):
     # process inline math
     elements = soup.find_all("span", attrs={"class": "arithmatex"})
     for element in elements:
-        latex = element.contents[1].contents[0]
+        latex = element.contents[1].contents[0].strip()
 
         new_img = soup.new_tag("img")
         new_img["eeimg"] = "1"
         encoded = urllib.parse.quote(latex)
         new_img["src"] = "//www.zhihu.com/equation?tex=" + encoded
-        new_img["alt"] = encoded
+        new_img["alt"] = latex
         element.replace_with(new_img)
 
     # process block math
     elements = soup.find_all("div", attrs={"class": "arithmatex"})
     for element in elements:
-        latex = element.contents[1].contents[0]
+        latex = element.contents[1].contents[0].strip()
 
         new_img = soup.new_tag("img")
         new_img["eeimg"] = "1"
         encoded = urllib.parse.quote(latex)
         new_img["src"] = "//www.zhihu.com/equation?tex=" + encoded
-        new_img["alt"] = encoded
+        new_img["alt"] = latex
         element.replace_with(new_img)
 
     # process code block
@@ -45,7 +45,7 @@ def convert(md):
 
         element.replace_with(new_pre)
 
-    return soup.prettify()
+    return str(soup)
 
 
 if __name__ == '__main__':
