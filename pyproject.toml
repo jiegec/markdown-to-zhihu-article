@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "markdown-to-zhihu-article"
+version = "0.1.0"
+description = ""
+authors = ["Jiajie Chen <c@jia.je>"]
+readme = "README.md"
+packages = [{include = "markdown_to_zhihu_article"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
