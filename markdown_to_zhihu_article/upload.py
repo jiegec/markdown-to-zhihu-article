@@ -13,7 +13,7 @@ def main(md):
     content = open(md, 'r').read()
     html = convert.convert(content)
 
-    print("Copy addupdate request as curl in chrome and press enter:")
+    print("Copy draft request as curl in chrome and press enter:")
     input()
 
     curl = pyperclip.paste()
