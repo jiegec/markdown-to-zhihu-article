@@ -38,11 +38,15 @@ def convert(md):
     # process code block
     elements = soup.find_all("pre", attrs={"class": "highlight"})
     for element in elements:
-        language = element.contents[0]['class'][0].split('-')[1]
         code = element.contents[0].contents[0]
 
         new_pre = soup.new_tag("pre")
-        new_pre["lang"] = language
+
+        if 'class' in element.contents[0]:
+            parts = element.contents[0]['class'][0].split('-')
+            if len(parts) == 2:
+                language = parts[1]
+                new_pre["lang"] = language
 
         # convert newlines to <br/>
         lines = code.split('\n')

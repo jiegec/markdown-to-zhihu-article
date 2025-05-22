@@ -20,7 +20,8 @@ def main(md):
     new_command = ''
     for line in curl.split('\n'):
         if '--data-raw' in line:
-            content = ' '.join(line.strip().split(' ')[1:-1])
+            arg = line[line.find('--data-raw'):]
+            content = ' '.join(arg.strip().split(' ')[1:])
             if content[0] == "$":
                 # $'content'
                 content = ast.literal_eval(content[1:])
@@ -34,7 +35,7 @@ def main(md):
             obj['content'] = html.replace('\n', '')
             new_json = json.dumps(obj)
 
-            new_command += f'  --data-raw {shlex.quote(new_json)}'
+            new_command += line[:line.find('--data-raw')] + f'  --data-raw {shlex.quote(new_json)}'
         else:
             new_command += line + '\n'
 
