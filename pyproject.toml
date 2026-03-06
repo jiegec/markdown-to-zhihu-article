@@ -9,7 +9,7 @@ packages = [{include = "markdown_to_zhihu_article"}]
 [tool.poetry.dependencies]
 python = "^3.11"
 markdown = "^3.8.1"
-pymdown-extensions = "^10.1"
+pymdown-extensions = "^10.16"
 beautifulsoup4 = "^4.12.2"
 click = "^8.1.6"
 pyperclip = "^1.8.2"
